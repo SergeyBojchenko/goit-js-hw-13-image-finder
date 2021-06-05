@@ -25,28 +25,35 @@ function onSearch(e) {
   picturesApiService.query = e.target.value;
 
   if (picturesApiService.query.length < 3) {
-    errorSetting.text = 'Please enter your specific query!';
-    errorSetting.mode = 'light';
-    return error(errorSetting);
+    error({
+   text: "Enter at least three characters",
+    mode: 'dark',
+    closer: true,
+    hide: true,
+    sticker: false,
+    addClass: "pnotify",
+    delay: 2000,
+  })
   }
   picturesApiService.resetPage();
   picturesApiService.fetchArticles()
     .then(hits => {
       if (!hits.length) {
-        errorSetting.text = 'Please enter a more specific query!';
-        errorSetting.mode = 'dark';
-        error(errorSetting);
+        error({
+   text: "Еnter a more specific query",
+    mode: 'light',
+    closer: true,
+    hide: true,
+    sticker: false,
+    addClass: "pnotify",
+    delay: 2000,
+  })
       }
       clearGalleryContainer();
       createGalleryMarkup(hits);
       refs.loadMoreBtnRef.removeAttribute('disabled');
     })
-    .catch(err => {
-      errorSetting.text = `${err}`;
-      errorSetting.mode = 'light';
-      error(errorSetting);
-    }
-    );
+    .catch(err => console.log(err));
 }
 
 function onLoadMore() {
@@ -81,12 +88,4 @@ function onImg(e) {
   }
 
 
-error({
-   text: "It's error",
-    mode: 'dark',
-    closer: true,
-    hide: true,
-    sticker: false,
-    addClass: "pnotify",
-    delay: 2000,
-  })
+
