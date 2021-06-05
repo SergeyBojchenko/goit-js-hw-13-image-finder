@@ -10,7 +10,7 @@ import 'basiclightbox/dist/basicLightbox.min.css';
 
 const refs = {
   searchFormRef: document.querySelector('#search-form'),
-  loadMoreBtnRef: document.querySelector('[data-action="load-more"]'),
+  loadMoreBtnRef: document.querySelector('[data-action="btn-load-more"]'),
   listGalleryRef: document.querySelector('.gallery'),
   
 };
@@ -37,8 +37,8 @@ function onSearch(e) {
         errorSetting.mode = 'dark';
         error(errorSetting);
       }
-      clearGaleryContainer();
-      createGaleryMurcup(hits);
+      clearGalleryContainer();
+      createGalleryMarkup(hits);
       refs.loadMoreBtnRef.removeAttribute('disabled');
     })
     .catch(err => {
@@ -50,11 +50,11 @@ function onSearch(e) {
 }
 
 function onLoadMore() {
-  picturesApiService.fetchArticles().then(createGaleryMurcup);
+  picturesApiService.fetchArticles().then(createGalleryMarkup);
 }
 
 
-function createGaleryMurcup(hits) {
+function createGalleryMarkup(hits) {
   refs.listGalleryRef.insertAdjacentHTML('beforeend', cardImageTemplate(hits));
   
   refs.listGalleryRef.scrollIntoView({
@@ -63,7 +63,7 @@ function createGaleryMurcup(hits) {
   });
 }
 
-function clearGaleryContainer() {
+function clearGalleryContainer() {
   refs.listGalleryRef.innerHTML = '';
 }
 
@@ -86,6 +86,6 @@ let errorSetting = {
     closer: true,
     hide: true,
     sticker: false,
-    addClass: "pnotify-position",
+    addClass: "pnotify",
     delay: 2000,
   };
