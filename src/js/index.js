@@ -73,12 +73,13 @@ refs.listGalleryRef.addEventListener('click', onImg);
 function onImg(e) {
   if (e.target.nodeName !== 'IMG') {
     return;
+  } 
+    const instance = basicLightbox.create(
+      `<img src="${e.target.dataset.src}"/>`
+    );
+    instance.show();
   }
-  const instance = basicLightbox.create(
-    `<img src="${e.target.dataset.url}"/>`
-  );
-  instance.show();
-}
+
 
 let errorSetting = {
     text: "It's error",
