@@ -81,12 +81,12 @@ function onImg(e) {
   }
 
 
-let errorSetting = {
-    text: "It's error",
-    mode: "dark",
+error({
+   text: "It's error",
+    mode: 'dark',
     closer: true,
     hide: true,
     sticker: false,
     addClass: "pnotify",
     delay: 2000,
-  };
+  })
