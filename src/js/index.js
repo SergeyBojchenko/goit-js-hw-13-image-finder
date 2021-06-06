@@ -25,35 +25,27 @@ function onSearch(e) {
   picturesApiService.query = e.target.value;
 
   if (picturesApiService.query.length < 3) {
-    error({
-   text: "Enter at least three characters",
-    mode: 'dark',
-    closer: true,
-    hide: true,
-    sticker: false,
-    addClass: "pnotify",
-    delay: 2000,
-  })
+    errOptions.text = 'Enter at least three characters';
+    errOptions.mode = 'dark';
+    return error(errOptions);
   }
   picturesApiService.resetPage();
   picturesApiService.fetchArticles()
     .then(hits => {
       if (!hits.length) {
-        error({
-   text: "Еnter a more specific query",
-    mode: 'light',
-    closer: true,
-    hide: true,
-    sticker: false,
-    addClass: "pnotify",
-    delay: 2000,
-  })
+        errOptions.text = 'Enter a more specific query';
+        errOptions.mode = 'dark';
+        error(errOptions);
       }
       clearGalleryContainer();
       createGalleryMarkup(hits);
       refs.loadMoreBtnRef.removeAttribute('disabled');
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      errOptions.text = `${err}`;
+      errOptions.mode = 'dark';
+      error(errOptions);
+    });
 }
 
 function onLoadMore() {
@@ -87,5 +79,12 @@ function onImg(e) {
     instance.show();
   }
 
-
-
+let errOptions = {
+   text: "No connection to the server",
+    mode: 'dark',
+    closer: true,
+    hide: true,
+    sticker: false,
+    addClass: "pnotify",
+    delay: 2000,
+  }
